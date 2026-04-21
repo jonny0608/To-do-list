@@ -41,3 +41,25 @@ function displayTasks() {
     //append the list item to the task list in HTML
 
 }
+
+function removeTask(index) {
+    tasks.splice(index, 1);
+    displayTasks();
+}
+
+document.getElementById("clearTasksBtn").addEventListener('click', function () {
+    tasks = [];
+    displayTasks();
+});
+
+// remove Task on click of the check mark button add a counter o tasks completed and display it on the page.
+
+let completedTasks = 0;
+const completedtasksCounter = document.getElementById("removeTask");
+removeTask.addEventListener('click', () => {
+    count++;
+    display.textcontent = `Tasks Completed: ${count}`;
+});
+console.log(completedTasks);
+
+//Have to fix the counter for completed task and the remember to add the couter for the total number of tasks.
