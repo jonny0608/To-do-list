@@ -1,0 +1,18 @@
+body {
+background-color: #2B4141 ;
+}
+#clearTasksBtn {
+    color: #400406;
+    border: 10px solid #0f1414;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+#addTaskBtn{
+    background-color: #400406;
+    color: #fff;
+    border: 10px solid #275f5f;
+    padding: 10px 20px;
+    margin-top: 10%;
+    cursor: pointer;
+    filter: drop-shadow(10px 4px 6px #000);
+}

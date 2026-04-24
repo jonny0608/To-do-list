@@ -54,12 +54,15 @@ document.getElementById("clearTasksBtn").addEventListener('click', function () {
 
 // remove Task on click of the check mark button add a counter o tasks completed and display it on the page.
 
-let completedTasks = 0;
-const completedtasksCounter = document.getElementById("removeTask");
-removeTask.addEventListener('click', () => {
-    count++;
-    display.textcontent = `Tasks Completed: ${count}`;
-});
-console.log(completedTasks);
 
-//Have to fix the counter for completed task and the remember to add the couter for the total number of tasks.
+let completedTasks = 0;
+const completedTasks = taskCount;
+const display = document.getElementById("taskCount");
+
+document.getElementById("removeTask").addEventListener('click', () => {
+    taskCount++;
+    display.textContent = `Tasks Completed: ${completedTasks}`;
+});
+console.log(`Tasks Completed: ${completedTasks}`);
+
+//Have to fix the counter for completed task and the remember to add the counter for the total number of tasks.
