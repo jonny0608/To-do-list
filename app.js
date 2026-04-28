@@ -1,68 +1,75 @@
-let tasks = []; // Empty array to hold tasks
+let tasks = [];
+let completed = [];
 
-document.getElementById("addTaskBtn").addEventListener('click', function () {
-    // get the value of the input field
-    let taskInput = document.getElementById("taskInput").value;
-    // check if input field is empty
-    if (taskInput) {
-        //add the task to the array
-        tasks.push(taskInput);
-        // clear the input field 
-        document.getElementById("taskInput").value = "";
-        //update task list display
-        displayTasks();
-    }
+document.getElementById("taskInput").focus();
+
+document.getElementById("taskInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    addTask();
+  }
 });
+
+function addTask() {
+  let input = document.getElementById("taskInput");
+  let task = input.value;
+
+  if (task !== "") {
+    tasks.push(task);
+    completed.push(false);
+    input.value = "";
+    input.focus();
+    displayTasks();
+  }
+}
 
 function displayTasks() {
-    //select the task list from HTMl
-    let taskList = document.getElementById("taskList");
-    //clear existing tasks
-    taskList.innerHTML = '';
-    //loop through each task in the array and create a list item for each
-    tasks.forEach((task, index) => {
-        //Create a new list element for each task (li)
-        let li = document.createElement('li');
+  let list = document.getElementById("taskList");
+  list.innerHTML = "";
 
-        //add styling 
-        li.classList.add(
-            'list-group-item',
-            'd-flex',
-            'justify-content-between',
-            'align-items-center'
-        );
-        //set the inner HTML of the list item to the task text
-        li.innerHTML = `${task} <button class='btn btn-success btn-sm' onclick='removeTask(${index})'>✓</button>`;
-        //append the list item to the task list in HTML
-        taskList.appendChild(li);
-    })
+  for (let i = 0; i < tasks.length; i++) {
+    let li = document.createElement("li");
+    li.className = "list-group-item";
 
+    if (completed[i] === true) {
+      li.classList.add("completed");
+    }
 
-    //append the list item to the task list in HTML
+    let span = document.createElement("span");
+    span.className = "task-text";
+    span.innerHTML = tasks[i];
 
+    let button = document.createElement("button");
+    button.className = "btn btn-success btn-sm";
+    button.innerHTML = "✔";
+
+    button.onclick = function() {
+      tasks.splice(i, 1);
+      completed.splice(i, 1);
+      displayTasks();
+    };
+
+    li.appendChild(span);
+    li.appendChild(button);
+    list.appendChild(li);
+  }
+
+  updateCount();
 }
 
-function removeTask(index) {
-    tasks.splice(index, 1);
-    displayTasks();
+function updateCount() {
+  let done = 0;
+
+  for (let i = 0; i < completed.length; i++) {
+    if (completed[i] === true) {
+      done++;
+    }
+  }
+
+  document.getElementById("taskCount").innerHTML = done + "/" + tasks.length + " done";
 }
 
-document.getElementById("clearTasksBtn").addEventListener('click', function () {
-    tasks = [];
-    displayTasks();
-});
-
-// remove Task on click of the check mark button add a counter o tasks completed and display it on the page.
-
-
-let completedTasks = 0;
-const completedTasks = taskCount;
-const display = document.getElementById("taskCount");
-
-document.getElementById("removeTask").addEventListener('click', () => {
-    taskCount++;
-    display.textContent = `Tasks Completed: ${completedTasks}`;
-});
-console.log(`Tasks Completed: ${completedTasks}`);
-
-//Have to fix the counter for completed task and the remember to add the counter for the total number of tasks.
+function resetTasks() {
+  tasks = [];
+  completed = [];
+  displayTasks();
+}
